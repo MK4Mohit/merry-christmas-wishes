@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christmas Surprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    background:radial-gradient(circle at top,#0b1d3a,#000);
+    overflow:hidden;
+    font-family:Cinzel,serif;
+    color:#fff;
+}
+
+/* pages */
+.page{
+    position:absolute;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.active{
+    display:flex;
+}
+
+/* snow */
+.snow{
+    position:fixed;
+    top:-10px;
+    font-size:14px;
+    color:white;
+    animation:fall linear infinite;
+    pointer-events:none;
+}
+@keyframes fall{
+    to{transform:translateY(110vh);}
+}
+
+/* PAGE 1 */
+#page1{
+    background:linear-gradient(#08162f,#000);
+}
+
+.letter{
+    margin-top:20px;
+    width:200px;
+    height:130px;
+    background:#f4ecd8;
+    color:#4a2c12;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    cursor:pointer;
+    opacity:0;
+    animation:drop 3s 1.5s forwards;
+}
+@keyframes drop{
+    from{transform:translateY(-300px) rotate(0deg) scale(.3);opacity:0}
+    to{transform:translateY(0) rotate(720deg) scale(1.1);opacity:1}
+}
+
+.hint{
+    margin-top:30px;
+    font-size:14px;
+    opacity:.7;
+}
+
+/* PAGE 2 */
+#page2{
+    background:linear-gradient(#120c07,#000);
+}
+
+.scroll{
+    background:#f7eed9;
+    color:#3e250f;
+    padding:45px;
+    width:85%;
+    max-width:650px;
+    border-radius:16px;
+    box-shadow:0 0 50px rgba(255,215,0,.5);
+    font-family:'Great Vibes',cursive;
+    font-size:36px;
+    text-align:center;
+}
+
+.typing{
+    white-space:nowrap;
+    overflow:hidden;
+    border-right:2px solid #3e250f;
+    width:0;
+    animation:typing 7s steps(70,end) forwards;
+}
+@keyframes typing{
+    to{width:100%}
+}
+
+.next{
+    margin-top:25px;
+    font-size:16px;
+    opacity:.7;
+    cursor:pointer;
+}
+
+/* PAGE 3 */
+#page3{
+    background:
+      radial-gradient(circle at center, rgba(120,80,120,.25), transparent 60%),
+      linear-gradient(#05010a,#000);
+    text-align:center;
+}
+
+.final{
+    font-family:'Great Vibes',cursive;
+    font-size:54px;
+    color:#f5d6ff;
+    text-shadow:0 0 25px rgba(245,214,255,.9);
+    animation:pulse 3s infinite alternate;
+}
+@keyframes pulse{
+    from{opacity:.8}
+    to{opacity:1}
+}
+
+/* Tree & Star */
+.tree{
+    margin-top:25px;
+    font-size:120px;
+    animation:treeGlow 4s ease-in-out infinite;
+    filter:drop-shadow(0 0 25px rgba(255,215,0,.8));
+}
+@keyframes treeGlow{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.05)}
+}
+
+.star{
+    font-size:40px;
+    margin-bottom:-10px;
+    animation:starTwinkle 1.8s infinite alternate;
+}
+@keyframes starTwinkle{
+    from{opacity:.6;transform:scale(.9)}
+    to{opacity:1;transform:scale(1.1)}
+}
+
+.sub{
+    margin-top:25px;
+    font-size:18px;
+    opacity:.85;
+    max-width:520px;
+    line-height:1.8;
+}
+
+/* spark */
+.spell{
+    position:absolute;
+    font-size:18px;
+    color:#cfaaff;
+    animation:spark 1s linear forwards;
+}
+@keyframes spark{
+    from{opacity:1;transform:scale(1)}
+    to{opacity:0;transform:scale(2)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+    <div class="letter" onclick="openLetter()">Open Letter</div>
+    <div class="hint">A quiet winter secret awaits…</div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+    <div class="scroll">
+        <div class="typing">
+            Dear Neeti,<br>
+            On this calm winter night,<br>
+            something warm finds its way to you…<br>
+            Merry Christmas ✨
+        </div>
+        <div class="next" onclick="finalPage()">Continue</div>
+    </div>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+    <div class="final">Happy Christmas</div>
+
+    <div class="tree">
+        <div class="star">⭐</div>
+        🎄
+    </div>
+
+    <div class="sub">
+        Some feelings arrive softly,<br>
+        like snow that chooses where to fall.<br>
+        Not loud. Not rushed.<br>
+        Just quietly warm… and meant for you.
+    </div>
+</div>
+
+<script>
+function openLetter(){
+    document.getElementById("page1").classList.remove("active");
+    document.getElementById("page2").classList.add("active");
+}
+
+function finalPage(){
+    document.getElementById("page2").classList.remove("active");
+    document.getElementById("page3").classList.add("active");
+}
+
+/* snow */
+for(let i=0;i<50;i++){
+    let snow=document.createElement("div");
+    snow.className="snow";
+    snow.innerHTML="❄";
+    snow.style.left=Math.random()*100+"vw";
+    snow.style.animationDuration=3+Math.random()*5+"s";
+    snow.style.fontSize=10+Math.random()*10+"px";
+    document.body.appendChild(snow);
+}
+
+/* spark */
+document.addEventListener("click",e=>{
+    let s=document.createElement("div");
+    s.className="spell";
+    s.innerText="✦";
+    s.style.left=e.pageX+"px";
+    s.style.top=e.pageY+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+});
+</script>
+
+</body>
+</html>
